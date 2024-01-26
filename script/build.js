@@ -65,20 +65,21 @@ groupedEmojiData.split('\n').forEach(line => {
 //
 // Returns machine readable emoji short code
 function slugify(str) {
-  const SLUGIFY_REPLACEMENT = {
-    "*": "asterisk",
-    "#": "number sign"
-  }
+  // const SLUGIFY_REPLACEMENT = {
+  //   "*": "asterisk",
+  //   "#": "number sign"
+  // }
 
-  for (key in SLUGIFY_REPLACEMENT) {
-    str = str.replace(key, SLUGIFY_REPLACEMENT[key])
-  }
+  // for (key in SLUGIFY_REPLACEMENT) {
+  //   str = str.replace(key, SLUGIFY_REPLACEMENT[key])
+  // }
 
-  return str.normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/\(.+\)/g, '')
-    .trim()
-    .replace(/[\W|_]+/g, '_').toLowerCase()
+  // return str.normalize("NFD")
+  //   .replace(/[\u0300-\u036f]/g, "")
+  //   .replace(/\(.+\)/g, '')
+  //   .trim()
+  //   .replace(/[\W|_]+/g, '_').toLowerCase()
+  return str
 }
 
 // U+1F44B ; 6.0 # 👋 waving hand
