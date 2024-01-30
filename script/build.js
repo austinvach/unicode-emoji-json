@@ -63,23 +63,79 @@ groupedEmojiData.split('\n').forEach(line => {
 // 'Cocos (Keeling) Islands' -> 'cocos_islands'
 // 'keycap *' -> 'keycap_asterisk'
 //
+const keyMap = {
+  "smiling_face_with_open_hands":	"hugging_face",
+  "face_with_crossed_out_eyes":	"dizzy",
+  "enraged_face":	"pouting_face",
+  "deaf_person": "person_deaf",
+  "deaf_man": "man_deaf",
+  "deaf_woman": "woman_deaf",
+  "superhero": "person_superhero",
+  "supervillain": "person_supervillain",
+  "mage": "person_mage",
+  "fairy": "person_fairy",
+  "vampire": "person_vampire",
+  "merperson": "person_merpeople",
+  "merman": "man_merpeople",
+  "mermaid": "woman_merpeople",
+  "elf": "person_elf",
+  "genie": "person_genie",
+  "zombie": "person_zombie",
+  "people_with_bunny_ears": "person_with_bunny_ears",
+  "men_with_bunny_ears": "man_with_bunny_ears",
+  "women_with_bunny_ears": "woman_with_bunny_ears",
+  "people_wrestling": "person_wrestling",
+  "men_wrestling": "man_wrestling",
+  "women_wrestling": "woman_wrestling",
+  "pinata": "piñata",
+  "woman_s_clothes": "womans_clothes",
+  "man_s_shoe": "mans_shoe",
+  "woman_s_sandal": "womans_sandal",
+  "woman_s_boot": "womans_boot",
+  "woman_s_hat": "womans_hat",
+  "rescue_worker_s_helmet": "rescue_workers_helmet",
+  "men_s_room": "mens_room",
+  "women_s_room": "womens_room",
+  "on_arrow": "on!_arrow",
+  "keycap_number_sign": "keycap_hastag",
+  "a_button": "a_button_blood_type",
+  "ab_button": "ab_button_blood_type",
+  "b_button": "b_button_blood_type",
+  "o_button": "o_button_blood_type",
+  "up_button": "up!_button",
+  "red_triangle_pointed_up": "red_triangle"
+}
+
 // Returns machine readable emoji short code
 function slugify(str) {
-  // const SLUGIFY_REPLACEMENT = {
-  //   "*": "asterisk",
-  //   "#": "number sign"
-  // }
+  const SLUGIFY_REPLACEMENT = {
+    "*": "asterisk",
+    "#": "number sign"
+  }
 
-  // for (key in SLUGIFY_REPLACEMENT) {
-  //   str = str.replace(key, SLUGIFY_REPLACEMENT[key])
-  // }
+  for (key in SLUGIFY_REPLACEMENT) {
+    str = str.replace(key, SLUGIFY_REPLACEMENT[key])
+  }
 
-  // return str.normalize("NFD")
-  //   .replace(/[\u0300-\u036f]/g, "")
-  //   .replace(/\(.+\)/g, '')
-  //   .trim()
-  //   .replace(/[\W|_]+/g, '_').toLowerCase()
-  return str
+  str = str.normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\(.+\)/g, '')
+    .trim()
+    .replace(/[\W|_]+/g, '_').toLowerCase()
+
+  // str = replaceString (str, keyMap);
+  return str;
+}
+
+function replaceString (string, keyMap) {
+  // Check if the string is a key in the key map
+  if (keyMap.hasOwnProperty (string)) {
+    // If yes, return the value from the key map
+    return keyMap [string];
+  } else {
+    // If no, return the original string
+    return string;
+  }
 }
 
 // U+1F44B ; 6.0 # 👋 waving hand
