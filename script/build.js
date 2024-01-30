@@ -4,6 +4,372 @@ const groupedEmojiData = fs.readFileSync('./emoji-group.txt', 'utf-8')
 const VARIATION_16 = String.fromCodePoint(0xfe0f)
 const SKIN_TONE_VARIATION_DESC = /\sskin\stone(?:,|$)/
 
+const findReplace = {
+  "smiling_face_with_open_hands":	"hugging_face",
+  "face_with_crossed_out_eyes":	"dizzy",
+  "enraged_face":	"pouting_face",
+  "deaf_person": "person_deaf",
+  "deaf_man": "man_deaf",
+  "deaf_woman": "woman_deaf",
+  "superhero": "person_superhero",
+  "supervillain": "person_supervillain",
+  "mage": "person_mage",
+  "fairy": "person_fairy",
+  "vampire": "person_vampire",
+  "merperson": "person_merpeople",
+  "merman": "man_merpeople",
+  "mermaid": "woman_merpeople",
+  "elf": "person_elf",
+  "genie": "person_genie",
+  "zombie": "person_zombie",
+  "people_with_bunny_ears": "person_with_bunny_ears",
+  "men_with_bunny_ears": "man_with_bunny_ears",
+  "women_with_bunny_ears": "woman_with_bunny_ears",
+  "people_wrestling": "person_wrestling",
+  "men_wrestling": "man_wrestling",
+  "women_wrestling": "woman_wrestling",
+  "black_bird": "blackbird",
+  "pinata": "piñata",
+  "woman_s_clothes": "womans_clothes",
+  "man_s_shoe": "mans_shoe",
+  "woman_s_sandal": "womans_sandal",
+  "woman_s_boot": "womans_boot",
+  "woman_s_hat": "womans_hat",
+  "rescue_worker_s_helmet": "rescue_workers_helmet",
+  "men_s_room": "mens_room",
+  "women_s_room": "womens_room",
+  "on_arrow": "on!_arrow",
+  "keycap_number_sign": "keycap_hashtag",
+  "a_button": "a_button_blood_type",
+  "ab_button": "ab_button_blood_type",
+  "b_button": "b_button_blood_type",
+  "o_button": "o_button_(blood_type)",
+  "up_button": "up!_button",
+  "red_triangle_pointed_up": "red_triangle"
+}
+
+const noSkinToneSupport = ["handshake"]
+
+const svgUnavailable = [
+  "technologist",
+  "man_technologist",
+  "woman_technologist",
+  "people_holding_hands",
+  "women_holding_hands",
+  "woman_and_man_holding_hands",
+  "men_holding_hands",
+  "kiss",
+  "kiss_woman_man",
+  "kiss_man_man",
+  "kiss_woman_woman",
+  "couple_with_heart",
+  "couple_with_heart_woman_man",
+  "couple_with_heart_man_man",
+  "couple_with_heart_woman_woman",
+  "family",
+  "family_man_woman_boy",
+  "family_man_woman_girl",
+  "family_man_woman_girl_boy",
+  "family_man_woman_boy_boy",
+  "family_man_woman_girl_girl",
+  "family_man_man_boy",
+  "family_man_man_girl",
+  "family_man_man_girl_boy",
+  "family_man_man_boy_boy",
+  "family_man_man_girl_girl",
+  "family_woman_woman_boy",
+  "family_woman_woman_girl",
+  "family_woman_woman_girl_boy",
+  "family_woman_woman_boy_boy",
+  "family_woman_woman_girl_girl",
+  "family_man_boy",
+  "family_man_boy_boy",
+  "family_man_girl",
+  "family_man_girl_boy",
+  "family_man_girl_girl",
+  "family_woman_boy",
+  "family_woman_boy_boy",
+  "family_woman_girl",
+  "family_woman_girl_boy",
+  "family_woman_girl_girl",
+  "video_game",
+  "paperclip",
+  "flag_clipperton_island",
+  "flag_cocos_islands",
+  "flag_dominican_republic",
+  "flag_albania",
+  "flag_antigua_barbuda",
+  "flag_belgium",
+  "flag_botswana",
+  "flag_belarus",
+  "flag_burkina_faso",
+  "flag_bermuda",
+  "flag_antarctica",
+  "flag_bahamas",
+  "flag_congo_kinshasa",
+  "flag_bosnia_herzegovina",
+  "flag_western_sahara",
+  "flag_djibouti",
+  "flag_bouvet_island",
+  "flag_germany",
+  "flag_argentina",
+  "flag_cyprus",
+  "flag_algeria",
+  "flag_ecuador",
+  "flag_china",
+  "flag_georgia",
+  "flag_austria",
+  "flag_aruba",
+  "flag_colombia",
+  "flag_curacao",
+  "flag_australia",
+  "flag_st_barthelemy",
+  "flag_burundi",
+  "flag_grenada",
+  "flag_andorra",
+  "flag_dominica",
+  "flag_angola",
+  "flag_anguilla",
+  "flag_costa_rica",
+  "flag_congo_brazzaville",
+  "flag_bolivia",
+  "flag_faroe_islands",
+  "flag_brazil",
+  "flag_central_african_republic",
+  "flag_canary_islands",
+  "flag_kazakhstan",
+  "flag_luxembourg",
+  "flag_south_korea",
+  "flag_guatemala",
+  "flag_hong_kong_sar_china",
+  "flag_guyana",
+  "flag_iran",
+  "flag_macao_sar_china",
+  "flag_laos",
+  "flag_heard_mcdonald_islands",
+  "flag_isle_of_man",
+  "flag_panama",
+  "flag_mauritius",
+  "flag_kuwait",
+  "flag_comoros",
+  "flag_guinea_bissau",
+  "flag_guernsey",
+  "flag_lesotho",
+  "flag_iceland",
+  "flag_niue",
+  "flag_gibraltar",
+  "flag_montenegro",
+  "flag_greece",
+  "flag_jamaica",
+  "flag_nepal",
+  "flag_gambia",
+  "flag_pakistan",
+  "flag_hungary",
+  "flag_india",
+  "flag_north_korea",
+  "flag_israel",
+  "flag_mexico",
+  "flag_new_caledonia",
+  "flag_greenland",
+  "flag_st_martin",
+  "flag_netherlands",
+  "flag_mali",
+  "flag_indonesia",
+  "flag_niger",
+  "flag_moldova",
+  "flag_malawi",
+  "flag_st_kitts_nevis",
+  "flag_lithuania",
+  "flag_libya",
+  "flag_honduras",
+  "flag_martinique",
+  "flag_oman",
+  "flag_ireland",
+  "flag_croatia",
+  "flag_mozambique",
+  "flag_mongolia",
+  "flag_philippines",
+  "flag_papua_new_guinea",
+  "flag_kenya",
+  "flag_jersey",
+  "flag_haiti",
+  "flag_kiribati",
+  "flag_guam",
+  "flag_jordan",
+  "flag_st_lucia",
+  "flag_malaysia",
+  "flag_japan",
+  "flag_morocco",
+  "flag_south_georgia_south_sandwich_islands",
+  "flag_equatorial_guinea",
+  "flag_latvia",
+  "flag_malta",
+  "flag_new_zealand",
+  "flag_nigeria",
+  "flag_northern_mariana_islands",
+  "flag_cayman_islands",
+  "flag_french_polynesia",
+  "flag_monaco",
+  "flag_peru",
+  "flag_norfolk_island",
+  "flag_iraq",
+  "flag_italy",
+  "flag_cambodia",
+  "flag_nicaragua",
+  "flag_liechtenstein",
+  "flag_marshall_islands",
+  "flag_british_indian_ocean_territory",
+  "flag_madagascar",
+  "flag_kyrgyzstan",
+  "flag_maldives",
+  "flag_ghana",
+  "flag_namibia",
+  "flag_guadeloupe",
+  "flag_montserrat",
+  "flag_guinea",
+  "flag_myanmar",
+  "flag_liberia",
+  "flag_french_guiana",
+  "flag_sri_lanka",
+  "flag_nauru",
+  "flag_mauritania",
+  "flag_norway",
+  "flag_north_macedonia",
+  "flag_lebanon",
+  "flag_portugal",
+  "flag_tristan_da_cunha",
+  "flag_sierra_leone",
+  "flag_eswatini",
+  "flag_england",
+  "flag_scotland",
+  "flag_united_states",
+  "flag_paraguay",
+  "flag_pitcairn_islands",
+  "flag_el_salvador",
+  "flag_trinidad_tobago",
+  "flag_turkey",
+  "flag_british_virgin_islands",
+  "flag_vatican_city",
+  "flag_suriname",
+  "flag_mayotte",
+  "flag_sweden",
+  "flag_uzbekistan",
+  "flag_reunion",
+  "flag_st_helena",
+  "flag_south_sudan",
+  "flag_u_s_outlying_islands",
+  "flag_san_marino",
+  "flag_serbia",
+  "flag_romania",
+  "flag_tuvalu",
+  "flag_united_nations",
+  "flag_rwanda",
+  "flag_vietnam",
+  "flag_yemen",
+  "flag_south_africa",
+  "flag_tajikistan",
+  "flag_saudi_arabia",
+  "flag_uganda",
+  "flag_samoa",
+  "flag_puerto_rico",
+  "flag_ukraine",
+  "flag_wales",
+  "flag_vanuatu",
+  "flag_tunisia",
+  "flag_zambia",
+  "flag_senegal",
+  "flag_st_pierre_miquelon",
+  "flag_turkmenistan",
+  "flag_singapore",
+  "flag_wallis_futuna",
+  "flag_syria",
+  "flag_venezuela",
+  "flag_tonga",
+  "flag_sao_tome_principe",
+  "flag_somalia",
+  "flag_togo",
+  "flag_palestinian_territories",
+  "flag_seychelles",
+  "flag_palau",
+  "flag_chad",
+  "flag_solomon_islands",
+  "flag_qatar",
+  "flag_slovakia",
+  "flag_thailand",
+  "flag_zimbabwe",
+  "flag_taiwan",
+  "flag_french_southern_territories",
+  "flag_timor_leste",
+  "flag_tanzania",
+  "flag_tokelau",
+  "flag_u_s_virgin_islands",
+  "flag_sint_maarten",
+  "flag_russia",
+  "flag_poland",
+  "flag_st_vincent_grenadines",
+  "flag_svalbard_jan_mayen",
+  "flag_turks_caicos_islands",
+  "flag_slovenia",
+  "flag_uruguay",
+  "flag_kosovo",
+  "flag_sudan",
+  "flag_ascension_island",
+  "flag_united_arab_emirates",
+  "flag_afghanistan",
+  "flag_armenia",
+  "flag_american_samoa",
+  "flag_aland_islands",
+  "flag_azerbaijan",
+  "flag_barbados",
+  "flag_bangladesh",
+  "flag_bulgaria",
+  "flag_bahrain",
+  "flag_brunei",
+  "flag_caribbean_netherlands",
+  "flag_benin",
+  "flag_bhutan",
+  "flag_belize",
+  "flag_canada",
+  "flag_switzerland",
+  "flag_cote_d_ivoire",
+  "flag_cook_islands",
+  "flag_chile",
+  "flag_cameroon",
+  "flag_cuba",
+  "flag_cape_verde",
+  "flag_christmas_island",
+  "flag_czechia",
+  "flag_diego_garcia",
+  "flag_denmark",
+  "flag_ceuta_melilla",
+  "flag_estonia",
+  "flag_egypt",
+  "flag_eritrea",
+  "flag_spain",
+  "flag_ethiopia",
+  "flag_european_union",
+  "flag_finland",
+  "flag_fiji",
+  "flag_falkland_islands",
+  "flag_micronesia",
+  "flag_france",
+  "flag_gabon",
+  "flag_united_kingdom"
+]
+
+const excludedEmoji = [
+  "middle_finger",
+  "woman_beard",
+  "woman_in_tuxedo",
+  "man_with_veil",
+  "pregnant_man",
+  "pregnant_person",
+  "person_with_bunny_ears",
+  "man_with_bunny_ears",
+  "rainbow_flag",
+  "transgender_flag"
+]
+
 // Final data holder
 const orderedEmoji = []
 const dataByEmoji = {}
@@ -47,7 +413,8 @@ groupedEmojiData.split('\n').forEach(line => {
           group: currentGroup,
           emoji_version: emojiversion,
           unicode_version: null,
-          skin_tone_support: null
+          skin_tone_support: null,
+          svg_available: null
         }
       } else if (type === 'component') {
         emojiComponents[slugify(desc)] = emoji
@@ -63,49 +430,6 @@ groupedEmojiData.split('\n').forEach(line => {
 // 'Cocos (Keeling) Islands' -> 'cocos_islands'
 // 'keycap *' -> 'keycap_asterisk'
 //
-const keyMap = {
-  "smiling_face_with_open_hands":	"hugging_face",
-  "face_with_crossed_out_eyes":	"dizzy",
-  "enraged_face":	"pouting_face",
-  "deaf_person": "person_deaf",
-  "deaf_man": "man_deaf",
-  "deaf_woman": "woman_deaf",
-  "superhero": "person_superhero",
-  "supervillain": "person_supervillain",
-  "mage": "person_mage",
-  "fairy": "person_fairy",
-  "vampire": "person_vampire",
-  "merperson": "person_merpeople",
-  "merman": "man_merpeople",
-  "mermaid": "woman_merpeople",
-  "elf": "person_elf",
-  "genie": "person_genie",
-  "zombie": "person_zombie",
-  "people_with_bunny_ears": "person_with_bunny_ears",
-  "men_with_bunny_ears": "man_with_bunny_ears",
-  "women_with_bunny_ears": "woman_with_bunny_ears",
-  "people_wrestling": "person_wrestling",
-  "men_wrestling": "man_wrestling",
-  "women_wrestling": "woman_wrestling",
-  "pinata": "piñata",
-  "woman_s_clothes": "womans_clothes",
-  "man_s_shoe": "mans_shoe",
-  "woman_s_sandal": "womans_sandal",
-  "woman_s_boot": "womans_boot",
-  "woman_s_hat": "womans_hat",
-  "rescue_worker_s_helmet": "rescue_workers_helmet",
-  "men_s_room": "mens_room",
-  "women_s_room": "womens_room",
-  "on_arrow": "on!_arrow",
-  "keycap_number_sign": "keycap_hastag",
-  "a_button": "a_button_blood_type",
-  "ab_button": "ab_button_blood_type",
-  "b_button": "b_button_blood_type",
-  "o_button": "o_button_blood_type",
-  "up_button": "up!_button",
-  "red_triangle_pointed_up": "red_triangle"
-}
-
 // Returns machine readable emoji short code
 function slugify(str) {
   const SLUGIFY_REPLACEMENT = {
@@ -123,10 +447,13 @@ function slugify(str) {
     .trim()
     .replace(/[\W|_]+/g, '_').toLowerCase()
 
-  // str = replaceString (str, keyMap);
+  // AV EDIT START
+  str = replaceString (str, findReplace);
   return str;
+  // AV EDIT END
 }
 
+// AV EDIT START
 function replaceString (string, keyMap) {
   // Check if the string is a key in the key map
   if (keyMap.hasOwnProperty (string)) {
@@ -137,6 +464,7 @@ function replaceString (string, keyMap) {
     return string;
   }
 }
+// AV EDIT END
 
 // U+1F44B ; 6.0 # 👋 waving hand
 //          |1--| |2-|3----------|
@@ -171,16 +499,35 @@ orderedEmojiData.split('\n').forEach(line => {
       throw `${emoji} entry from emoji-order.txt match not found in emoji-group.txt`
     }
     currentEmoji = emojiWithOptionalVariation16
-    orderedEmoji.push(currentEmoji)
+    
     dataByEmoji[currentEmoji].name = fullName
     dataByEmoji[currentEmoji].slug = slugify(fullName)
     dataByEmoji[currentEmoji].unicode_version = version
     dataByEmoji[currentEmoji].skin_tone_support = false
+
+    // AV EDIT START
+    if (excludedEmoji.includes(dataByEmoji[currentEmoji].slug)){
+      console.log(dataByEmoji[currentEmoji].slug)
+    }else{
+      orderedEmoji.push(currentEmoji)
+    }
+    // AV EDIT END
   }
+  // AV EDIT START
+  if(svgUnavailable.includes(dataByEmoji[currentEmoji].slug)){
+    dataByEmoji[currentEmoji].svg_available = false
+  }
+  else(
+    dataByEmoji[currentEmoji].svg_available = true
+  )
+  if(noSkinToneSupport.includes(dataByEmoji[currentEmoji].slug)){
+    dataByEmoji[currentEmoji].skin_tone_support = false
+  }
+  // AV EDIT END
 })
 
 for (const emoji of orderedEmoji) {
-  const {group, skin_tone_support, skin_tone_support_unicode_version, name, slug, emoji_version, unicode_version} = dataByEmoji[emoji]
+  const {group, skin_tone_support, skin_tone_support_unicode_version, name, slug, emoji_version, unicode_version, svg_available} = dataByEmoji[emoji]
   let groupIndex = dataByGroup.findIndex((element) => element.name === group)
   if (groupIndex === - 1) {
     dataByGroup.push({ name: group, slug: slugify(group), emojis: [] })
@@ -193,7 +540,8 @@ for (const emoji of orderedEmoji) {
     name,
     slug,
     unicode_version,
-    emoji_version
+    emoji_version,
+    svg_available
   })
 }
 
