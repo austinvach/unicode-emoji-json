@@ -1875,15 +1875,6 @@
         "emoji_version": "0.6"
       },
       {
-        "emoji": "🧒",
-        "skin_tone_support": true,
-        "skin_tone_support_unicode_version": "5.0",
-        "name": "child",
-        "slug": "child",
-        "unicode_version": "5.0",
-        "emoji_version": "5.0"
-      },
-      {
         "emoji": "👦",
         "skin_tone_support": true,
         "skin_tone_support_unicode_version": "1.0",
@@ -2366,15 +2357,6 @@
         "skin_tone_support_unicode_version": "4.0",
         "name": "man office worker",
         "slug": "man_office_worker",
-        "unicode_version": "4.0",
-        "emoji_version": "4.0"
-      },
-      {
-        "emoji": "👩‍💼",
-        "skin_tone_support": true,
-        "skin_tone_support_unicode_version": "4.0",
-        "name": "woman office worker",
-        "slug": "woman_office_worker",
         "unicode_version": "4.0",
         "emoji_version": "4.0"
       },

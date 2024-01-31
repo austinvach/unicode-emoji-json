@@ -399,6 +399,7 @@ const excludedEmoji = [
   "person_in_tuxedo",
   "person_with_veil",
   "woman_beard",
+  "woman_office_worker",
   "woman_in_tuxedo",
   "man_with_veil",
   "pregnant_man",
