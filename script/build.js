@@ -391,6 +391,7 @@ const excludedEmoji = [
   "person_bowing",
   "detective",
   "guard",
+  "child",
   "construction_worker",
   "person_with_crown",
   "person_wearing_turban",
