@@ -447,13 +447,13 @@ function slugify(str) {
     .trim()
     .replace(/[\W|_]+/g, '_').toLowerCase()
 
-  // AV EDIT START
+  // AV EDIT (1/4)
   str = replaceString (str, findReplace);
   return str;
-  // AV EDIT END
+  // END OF EDIT
 }
 
-// AV EDIT START
+// AV EDIT (2/4)
 function replaceString (string, keyMap) {
   // Check if the string is a key in the key map
   if (keyMap.hasOwnProperty (string)) {
@@ -464,7 +464,7 @@ function replaceString (string, keyMap) {
     return string;
   }
 }
-// AV EDIT END
+// END OF EDIT
 
 // U+1F44B ; 6.0 # 👋 waving hand
 //          |1--| |2-|3----------|
@@ -504,17 +504,19 @@ orderedEmojiData.split('\n').forEach(line => {
     dataByEmoji[currentEmoji].slug = slugify(fullName)
     dataByEmoji[currentEmoji].unicode_version = version
     dataByEmoji[currentEmoji].skin_tone_support = false
+
+    // AV EDIT (3/4)
+    if(!svgUnavailable.includes(dataByEmoji[currentEmoji].slug) && !excludedEmoji.includes(dataByEmoji[currentEmoji].slug)){
+      orderedEmoji.push(currentEmoji)
+    }
+    // END OF EDIT
   }
 
-  // AV EDIT START
+  // AV EDIT (4/4)
   if(noSkinToneSupport.includes(dataByEmoji[currentEmoji].slug)){
     dataByEmoji[currentEmoji].skin_tone_support = false
   }
-
-  if(!svgUnavailable.includes(dataByEmoji[currentEmoji].slug) && !excludedEmoji.includes(dataByEmoji[currentEmoji].slug)){
-    orderedEmoji.push(currentEmoji)
-  }
-  // AV EDIT END
+  // END OF EDIT
 })
 
 for (const emoji of orderedEmoji) {
