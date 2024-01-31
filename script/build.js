@@ -366,6 +366,7 @@ const excludedEmoji = [
   "pregnant_person",
   "person_with_bunny_ears",
   "man_with_bunny_ears",
+  "transgender_symbol",
   "rainbow_flag",
   "transgender_flag"
 ]
@@ -413,8 +414,7 @@ groupedEmojiData.split('\n').forEach(line => {
           group: currentGroup,
           emoji_version: emojiversion,
           unicode_version: null,
-          skin_tone_support: null,
-          svg_available: null
+          skin_tone_support: null
         }
       } else if (type === 'component') {
         emojiComponents[slugify(desc)] = emoji
@@ -504,30 +504,21 @@ orderedEmojiData.split('\n').forEach(line => {
     dataByEmoji[currentEmoji].slug = slugify(fullName)
     dataByEmoji[currentEmoji].unicode_version = version
     dataByEmoji[currentEmoji].skin_tone_support = false
+  }
 
-    // AV EDIT START
-    if (excludedEmoji.includes(dataByEmoji[currentEmoji].slug)){
-      console.log(dataByEmoji[currentEmoji].slug)
-    }else{
-      orderedEmoji.push(currentEmoji)
-    }
-    // AV EDIT END
-  }
   // AV EDIT START
-  if(svgUnavailable.includes(dataByEmoji[currentEmoji].slug)){
-    dataByEmoji[currentEmoji].svg_available = false
-  }
-  else(
-    dataByEmoji[currentEmoji].svg_available = true
-  )
   if(noSkinToneSupport.includes(dataByEmoji[currentEmoji].slug)){
     dataByEmoji[currentEmoji].skin_tone_support = false
+  }
+
+  if(!svgUnavailable.includes(dataByEmoji[currentEmoji].slug) && !excludedEmoji.includes(dataByEmoji[currentEmoji].slug)){
+    orderedEmoji.push(currentEmoji)
   }
   // AV EDIT END
 })
 
 for (const emoji of orderedEmoji) {
-  const {group, skin_tone_support, skin_tone_support_unicode_version, name, slug, emoji_version, unicode_version, svg_available} = dataByEmoji[emoji]
+  const {group, skin_tone_support, skin_tone_support_unicode_version, name, slug, emoji_version, unicode_version} = dataByEmoji[emoji]
   let groupIndex = dataByGroup.findIndex((element) => element.name === group)
   if (groupIndex === - 1) {
     dataByGroup.push({ name: group, slug: slugify(group), emojis: [] })
@@ -540,8 +531,7 @@ for (const emoji of orderedEmoji) {
     name,
     slug,
     unicode_version,
-    emoji_version,
-    svg_available
+    emoji_version
   })
 }
 
