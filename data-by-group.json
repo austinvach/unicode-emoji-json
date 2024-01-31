@@ -10942,8 +10942,8 @@
     ]
   },
   {
-    "name": "Symbols",
-    "slug": "symbols",
+    "name": "Symbols & Flags",
+    "slug": "symbols_flags",
     "emojis": [
       {
         "emoji": "🏧",
@@ -12720,13 +12720,7 @@
         "slug": "black_square_button",
         "unicode_version": "0.6",
         "emoji_version": "0.6"
-      }
-    ]
-  },
-  {
-    "name": "Flags",
-    "slug": "flags",
-    "emojis": [
+      },
       {
         "emoji": "🏁",
         "skin_tone_support": false,

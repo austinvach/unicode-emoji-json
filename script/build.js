@@ -3,7 +3,6 @@ const orderedEmojiData = fs.readFileSync('./emoji-order.txt', 'utf-8')
 const groupedEmojiData = fs.readFileSync('./emoji-group.txt', 'utf-8')
 const VARIATION_16 = String.fromCodePoint(0xfe0f)
 const SKIN_TONE_VARIATION_DESC = /\sskin\stone(?:,|$)/
-
 const findReplace = {
   "smiling_face_with_open_hands":	"hugging_face",
   "face_with_crossed_out_eyes":	"dizzy",
@@ -47,9 +46,7 @@ const findReplace = {
   "up_button": "up!_button",
   "red_triangle_pointed_up": "red_triangle"
 }
-
 const noSkinToneSupport = ["handshake"]
-
 const svgUnavailable = [
   "technologist",
   "man_technologist",
@@ -356,7 +353,6 @@ const svgUnavailable = [
   "flag_gabon",
   "flag_united_kingdom"
 ]
-
 const excludedEmoji = [
   "middle_finger",
   "woman_beard",
@@ -401,7 +397,13 @@ let currentGroup = null
 groupedEmojiData.split('\n').forEach(line => {
   const groupMatch = line.match(GROUP_REGEX)
   if (groupMatch) {
-    currentGroup = groupMatch.groups.name
+    if(groupMatch.groups.name === "Symbols" || groupMatch.groups.name === "Flags"){
+      currentGroup = "Symbols & Flags"
+    }
+    else {
+      currentGroup = groupMatch.groups.name
+    }
+    //currentGroup = groupMatch.groups.name
   } else {
     const emojiMatch = line.match(EMOJI_REGEX)
     if (emojiMatch) {
@@ -538,18 +540,6 @@ for (const emoji of orderedEmoji) {
 }
 
 // {
-//   "😀": {
-//     "group": "Smileys & Emotion",
-//     "name": "grinning face",
-//     "slug": "grinning_face",
-//     "version": "6.1",
-//     "skin_tone_support": false
-//   },
-//   ...
-// }
-fs.writeFileSync('data-by-emoji.json', JSON.stringify(dataByEmoji, null, 2))
-
-// {
 //   "Smileys & Emotion": [
 //     {
 //       "emoji": "😀",
@@ -562,17 +552,3 @@ fs.writeFileSync('data-by-emoji.json', JSON.stringify(dataByEmoji, null, 2))
 //   ...
 // }
 fs.writeFileSync('data-by-group.json', JSON.stringify(dataByGroup, null, 2))
-
-// [
-//   "😀",
-//   "😃",
-//   ...
-// ]
-fs.writeFileSync('data-ordered-emoji.json', JSON.stringify(orderedEmoji, null, 2))
-
-// {
-//   "light_skin_tone": "🏻",
-//   "medium_light_skin_tone": "🏼",
-//   ...
-// }
-fs.writeFileSync('data-emoji-components.json', JSON.stringify(emojiComponents, null, 2))
