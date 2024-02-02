@@ -4,47 +4,116 @@ const groupedEmojiData = fs.readFileSync('./emoji-group.txt', 'utf-8')
 const VARIATION_16 = String.fromCodePoint(0xfe0f)
 const SKIN_TONE_VARIATION_DESC = /\sskin\stone(?:,|$)/
 const findReplace = {
-  "smiling_face_with_open_hands":	"hugging_face",
-  "face_with_crossed_out_eyes":	"dizzy",
-  "enraged_face":	"pouting_face",
-  "deaf_person": "person_deaf",
-  "deaf_man": "man_deaf",
-  "deaf_woman": "woman_deaf",
-  "superhero": "person_superhero",
-  "supervillain": "person_supervillain",
-  "mage": "person_mage",
-  "fairy": "person_fairy",
-  "vampire": "person_vampire",
-  "merperson": "person_merpeople",
-  "merman": "man_merpeople",
-  "mermaid": "woman_merpeople",
-  "elf": "person_elf",
-  "genie": "person_genie",
-  "zombie": "person_zombie",
-  "people_with_bunny_ears": "person_with_bunny_ears",
-  "men_with_bunny_ears": "man_with_bunny_ears",
-  "women_with_bunny_ears": "woman_with_bunny_ears",
-  "people_wrestling": "person_wrestling",
-  "men_wrestling": "man_wrestling",
-  "women_wrestling": "woman_wrestling",
-  "black_bird": "blackbird",
-  "pinata": "piñata",
-  "woman_s_clothes": "womans_clothes",
-  "man_s_shoe": "mans_shoe",
-  "woman_s_sandal": "womans_sandal",
-  "woman_s_boot": "womans_boot",
-  "woman_s_hat": "womans_hat",
-  "rescue_worker_s_helmet": "rescue_workers_helmet",
-  "men_s_room": "mens_room",
-  "women_s_room": "womens_room",
-  "on_arrow": "on!_arrow",
-  "keycap_number_sign": "keycap_hashtag",
   "a_button": "a_button_blood_type",
   "ab_button": "ab_button_blood_type",
   "b_button": "b_button_blood_type",
+  "black_bird": "blackbird",
+  "black_medium_small_square": "black_medium-small_square",
+  "deaf_man": "man_deaf",
+  "deaf_person": "person_deaf",
+  "deaf_woman": "woman_deaf",
+  "dotted_six_pointed_star": "dotted_six-pointed_star",
+  "down_left_arrow": "down-left_arrow",
+  "down_right_arrow": "down-right_arrow",
+  "e_mail": "e-mail",
+  "eight_o_clock": "eight_oclock",
+  "eight_pointed_star": "eight-pointed_star",
+  "eight_spoked_asterisk": "eight-spoked_asterisk",
+  "eight_thirty": "eight-thirty",
+  "eleven_o_clock": "eleven_oclock",
+  "eleven_thirty": "eleven-thirty",
+  "elf": "person_elf",
+  "enraged_face": "pouting_face",
+  "face_with_crossed_out_eyes": "dizzy",
+  "face_with_head_bandage": "face_with_head-bandage",
+  "fairy": "person_fairy",
+  "fast_forward_button": "fast-forward_button",
+  "five_o_clock": "five_oclock",
+  "five_thirty": "five-thirty",
+  "fleur_de_lis": "fleur-de-lis",
+  "four_o_clock": "four_oclock",
+  "four_thirty": "four-thirty",
+  "front_facing_baby_chick": "front-facing_baby_chick",
+  "genie": "person_genie",
+  "globe_showing_asia_australia": "globe_showing_asia-australia",
+  "globe_showing_europe_africa": "globe_showing_europe-africa",
+  "hear_no_evil_monkey": "hear-no-evil_monkey",
+  "high_heeled_shoe": "high-heeled_shoe",
+  "high_speed_train": "high-speed_train",
+  "jack_o_latern": "jack-o-latern",
+  "keycap_number_sign": "keycap_hashtag",
+  "left_facing_fist": "left-facing fist",
+  "left_right_arrow": "left-right_arrow",
+  "love_you_gesture": "love-you_gesture",
+  "mage": "person_mage",
+  "man_blond_hair": "man_blonde_hair",
+  "man_s_shoe": "mans_shoe",
+  "men_s_room": "mens_room",
+  "men_with_bunny_ears": "man_with_bunny_ears",
+  "men_wrestling": "man_wrestling",
+  "mermaid": "woman_merpeople",
+  "merman": "man_merpeople",
+  "merperson": "person_merpeople",
+  "money_mouth_face": "money-mouth_face",
+  "nine_o_clock": "nine_oclock",
+  "nine_thirty": "nine-thirty",
+  "non_potable_water": "non-potable_water",
   "o_button": "o_button_(blood_type)",
+  "on_arrow": "on!_arrow",
+  "one_o_clock": "one_oclock",
+  "one_piece_swimsuit": "one-piece_swimsuit",
+  "one_thirty": "one-thirty",
+  "people_with_bunny_ears": "person_with_bunny_ears",
+  "people_wrestling": "person_wrestling",
+  "pinata": "piñata",
+  "red_triangle_pointed_up": "red_triangle",
+  "rescue_worker_s_helmet": "rescue_workers_helmet",
+  "right_facing_fist": "right-facing fist",
+  "rolled_up_newspaper": "rolled-up_newspaper",
+  "see_no_evil_monkey": "see-no-evil_monkey",
+  "seven_o_clock": "seven_oclock",
+  "seven_thirty": "seven-thirty",
+  "six_o_clock": "six_oclock",
+  "six_thirty": "six-thirty",
+  "smiling_cat_with_heart_eyes": "smiling_cat_with_heart-eyes",
+  "smiling_face_with_heart_eyes": "smiling_face_with_heart-eyes",
+  "smiling_face_with_open_hands": "hugging_face",
+  "snow_capped_mountain": "snow-capped_mountain",
+  "speak_no_evil_monkey": "speak-no-evil_monkey",
+  "star_struck": "star-struck",
+  "superhero": "person_superhero",
+  "supervillain": "person_supervillain",
+  "t_rex": "t-rex",
+  "t_shirt": "t-shirt",
+  "tear_off_calendar": "tear-off_calendar",
+  "ten_o_clock": "ten_oclock",
+  "ten_thirty": "ten-thirty",
+  "three_o_clock": "three_oclock",
+  "three_thirty": "three-thirty",
+  "twelve_o_clock": "twelve_oclock",
+  "twelve_thirty": "twelve-thirty",
+  "two_hump_camel": "two-hump_camel",
+  "two_o_clock": "two_oclock",
+  "two_thirty": "two-thirty",
   "up_button": "up!_button",
-  "red_triangle_pointed_up": "red_triangle"
+  "up_down_arrow": "up-down_arrow",
+  "up_left_arrow": "up-left_arrow",
+  "up_right_arrow": "up-right_arrow",
+  "upside_down_face": "upside-down_face",
+  "vampire": "person_vampire",
+  "white_medium_small_square": "white_medium-small_square",
+  "woman_blond_hair": "woman_blonde_hair",
+  "woman_s_boot": "womans_boot",
+  "woman_s_clothes": "womans_clothes",
+  "woman_s_hat": "womans_hat",
+  "woman_s_sandal": "womans_sandal",
+  "women_s_room": "womens_room",
+  "women_with_bunny_ears": "woman_with_bunny_ears",
+  "women_wrestling": "woman_wrestling",
+  "x_ray": "x-ray",
+  "yo_yo": "yo-yo",
+  "zipper_mouth_face": "zipper-mouth_face",
+  "zombie": "person_zombie"
 }
 const noSkinToneSupport = ["handshake"]
 const svgUnavailable = [
@@ -476,7 +545,7 @@ let currentGroup = null
 groupedEmojiData.split('\n').forEach(line => {
   const groupMatch = line.match(GROUP_REGEX)
   if (groupMatch) {
-    if(groupMatch.groups.name === "Symbols" || groupMatch.groups.name === "Flags"){
+    if (groupMatch.groups.name === "Symbols" || groupMatch.groups.name === "Flags") {
       currentGroup = "Symbols & Flags"
     }
     else {
@@ -486,7 +555,7 @@ groupedEmojiData.split('\n').forEach(line => {
   } else {
     const emojiMatch = line.match(EMOJI_REGEX)
     if (emojiMatch) {
-      const {groups: {type, emoji, desc, emojiversion}} = emojiMatch
+      const { groups: { type, emoji, desc, emojiversion } } = emojiMatch
       if (type === 'fully-qualified') {
         if (line.match(SKIN_TONE_VARIATION_DESC)) return
         dataByEmoji[emoji] = {
@@ -529,17 +598,17 @@ function slugify(str) {
     .replace(/[\W|_]+/g, '_').toLowerCase()
 
   // AV EDIT (1/4)
-  str = replaceString (str, findReplace);
+  str = replaceString(str, findReplace);
   return str;
   // END OF EDIT
 }
 
 // AV EDIT (2/4)
-function replaceString (string, keyMap) {
+function replaceString(string, keyMap) {
   // Check if the string is a key in the key map
-  if (keyMap.hasOwnProperty (string)) {
+  if (keyMap.hasOwnProperty(string)) {
     // If yes, return the value from the key map
-    return keyMap [string];
+    return keyMap[string];
   } else {
     // If no, return the original string
     return string;
@@ -565,7 +634,7 @@ orderedEmojiData.split('\n').forEach(line => {
   const match = line.match(ORDERED_EMOJI_REGEX)
   if (!match) return
 
-  const {groups: {version, emoji, name, desc}} = match
+  const { groups: { version, emoji, name, desc } } = match
   const isSkinToneVariation = desc && !!desc.match(SKIN_TONE_VARIATION_DESC)
   const fullName = desc && !isSkinToneVariation ? [name, desc].join(' ') : name
   if (isSkinToneVariation) {
@@ -580,28 +649,28 @@ orderedEmojiData.split('\n').forEach(line => {
       throw `${emoji} entry from emoji-order.txt match not found in emoji-group.txt`
     }
     currentEmoji = emojiWithOptionalVariation16
-    
+
     dataByEmoji[currentEmoji].name = fullName
     dataByEmoji[currentEmoji].slug = slugify(fullName)
     dataByEmoji[currentEmoji].unicode_version = version
     dataByEmoji[currentEmoji].skin_tone_support = false
 
     // AV EDIT (3/4)
-    if(!svgUnavailable.includes(dataByEmoji[currentEmoji].slug) && !excludedEmoji.includes(dataByEmoji[currentEmoji].slug)){
+    if (!svgUnavailable.includes(dataByEmoji[currentEmoji].slug) && !excludedEmoji.includes(dataByEmoji[currentEmoji].slug)) {
       orderedEmoji.push(currentEmoji)
     }
     // END OF EDIT
   }
 
   // AV EDIT (4/4)
-  if(noSkinToneSupport.includes(dataByEmoji[currentEmoji].slug)){
+  if (noSkinToneSupport.includes(dataByEmoji[currentEmoji].slug)) {
     dataByEmoji[currentEmoji].skin_tone_support = false
   }
   // END OF EDIT
 })
 
 for (const emoji of orderedEmoji) {
-  const {group, skin_tone_support, skin_tone_support_unicode_version, name, slug, emoji_version, unicode_version} = dataByEmoji[emoji]
+  const { group, skin_tone_support, skin_tone_support_unicode_version, name, slug, emoji_version, unicode_version } = dataByEmoji[emoji]
   let groupIndex = dataByGroup.findIndex((element) => element.name === group)
   if (groupIndex === - 1) {
     dataByGroup.push({ name: group, slug: slugify(group), emojis: [] })
