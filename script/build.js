@@ -478,6 +478,7 @@ const excludedEmoji = [
   "person_supervillain",
   "person_with_bunny_ears",
   "person_mage",
+  "man_fairy",
   "person_fairy",
   "person_vampire",
   "person_merpeople",
